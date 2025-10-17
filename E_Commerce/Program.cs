@@ -22,6 +22,7 @@ public class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
         });
         builder.Services.AddScoped<IDataSeeding, DataSeeding>();
+        builder.Services.AddScoped<IUnitOfWork, IUnitOfWork>();
 
         var app = builder.Build();
         
