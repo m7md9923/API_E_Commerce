@@ -6,7 +6,7 @@ using Shared.Dtos;
 
 namespace Services.Implementations;
 
-public class ProductServices(IUnitOfWork _unitOfWork, IMapper _mapper) : IProductService
+public class ProductService(IUnitOfWork _unitOfWork, IMapper _mapper) : IProductService
 {
     public async Task<IEnumerable<ProductResultDto>> GetAllProductsAsync()
     {

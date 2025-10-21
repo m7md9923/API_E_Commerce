@@ -2,6 +2,8 @@ using System.Reflection.Metadata;
 using Domain.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
+using Services.Abstraction.Contracts;
+using Services.Implementations;
 using AssemblyReference = Services.AssemblyReference;
 
 namespace E_Commerce;
@@ -26,7 +28,9 @@ public class Program
         builder.Services.AddScoped<IDataSeeding, DataSeeding>();
         builder.Services.AddScoped<IUnitOfWork, IUnitOfWork>();
         builder.Services.AddAutoMapper(cfg => { }, typeof(AssemblyReference).Assembly);
-
+        builder.Services.AddScoped<IServiceManager, ServiceManager>();
+        
+        
         var app = builder.Build();
         
         using var scope = app.Services.CreateScope();
