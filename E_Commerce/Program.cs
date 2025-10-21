@@ -1,6 +1,11 @@
+using System.Reflection.Metadata;
 using Domain.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
+using Persistence.Repositories;
+using Services.Abstraction.Contracts;
+using Services.Implementations;
+using AssemblyReference = Services.AssemblyReference;
 
 namespace E_Commerce;
 
@@ -22,7 +27,11 @@ public class Program
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
         });
         builder.Services.AddScoped<IDataSeeding, DataSeeding>();
-
+        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+        builder.Services.AddAutoMapper(cfg => { }, typeof(AssemblyReference).Assembly);
+        builder.Services.AddScoped<IServiceManager, ServiceManager>();
+        
+        
         var app = builder.Build();
         
         using var scope = app.Services.CreateScope();
@@ -37,7 +46,7 @@ public class Program
         }
 
         app.UseHttpsRedirection();
-        
+        app.UseStaticFiles();
         
         app.MapControllers();
 
