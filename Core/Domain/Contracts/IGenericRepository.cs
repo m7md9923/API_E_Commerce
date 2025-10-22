@@ -14,4 +14,14 @@ public interface IGenericRepository<TEntity, TKey> where TEntity : BaseEntity<TK
     void Update(TEntity entity);
     // Delete
     void Delete(TEntity entity);
+
+    #region Specifications
+
+    // GetAll
+    Task<IEnumerable<TEntity>> GetAllAsync(ISpecifications<TEntity, TKey> specifications);
+    // GetById
+    Task<TEntity?> GetByIdAsync(ISpecifications<TEntity, TKey> specifications);
+    
+    #endregion
+    
 }
