@@ -5,11 +5,13 @@ namespace Services.Specifications;
 
 public class ProductWithBrandAndTypeSpecification : BaseSpecifications<Product, int>
 {
-    // Get all products with brand and type
-    public ProductWithBrandAndTypeSpecification() : base(null)
+    // Get All Products with brand and type
+    public ProductWithBrandAndTypeSpecification(int? typeId, int? brandId)
+        : base(p => (!typeId.HasValue || p.TypeId == typeId)
+                    && (!brandId.HasValue || p.BrandId == brandId))
     {
         AddIncludes(p => p.productBrand);
-        AddIncludes(p => p.productType);
+        AddIncludes(p => p.productType);    
     }
     
     // Get Product By Id ==> Includes Type and Brand
