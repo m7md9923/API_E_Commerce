@@ -12,6 +12,14 @@ public static class SpecificationEvaluator
             inputQuery = inputQuery.Where(specifications.Criteria);
         }
 
+        if (specifications.OrderBy is not null)
+        {
+            inputQuery = inputQuery.OrderBy(specifications.OrderBy);
+        }
+        if (specifications.OrderByDescending is not null)
+        {
+            inputQuery = inputQuery.OrderByDescending(specifications.OrderByDescending);       
+        }
         if (specifications.IncludeExpressions.Any())
         {
             // foreach (var includeExpression in specifications.IncludeExpressions)
