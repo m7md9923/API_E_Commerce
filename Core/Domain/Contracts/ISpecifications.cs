@@ -15,4 +15,10 @@ public interface ISpecifications<TEntity, TKey> where TEntity : BaseEntity<TKey>
     public Expression<Func<TEntity, object>> OrderBy { get; }
     
     public Expression<Func<TEntity, object>> OrderByDescending { get; }
+    
+    // Pagination
+    public int Skip { get; }
+    public int Take { get; }
+    
+    public bool IsPaginated { get; }
 }

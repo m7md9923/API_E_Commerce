@@ -29,6 +29,11 @@ public static class SpecificationEvaluator
             
             inputQuery = specifications.IncludeExpressions.Aggregate(inputQuery, (current, includeExpression) => current.Include(includeExpression));
         }
+
+        if (specifications.IsPaginated)
+        {
+            inputQuery = inputQuery.Skip(specifications.Skip).Take(specifications.Take);       
+        }
         return inputQuery;
     }
 }

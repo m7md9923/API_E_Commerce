@@ -34,6 +34,7 @@ public class ProductWithBrandAndTypeSpecification : BaseSpecifications<Product, 
             default:
                 break;
         }
+        ApplyPagination(parameters.PageSize, parameters.PageIndex);
     }
     
     // Get Product By Id ==> Includes Type and Brand
