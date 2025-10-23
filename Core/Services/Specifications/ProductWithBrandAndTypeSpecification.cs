@@ -1,21 +1,22 @@
 ﻿using System.Linq.Expressions;
 using Domain.Entities.ProductModule;
 using Shared.Enums;
+using Shared.Specifications;
 
 namespace Services.Specifications;
 
 public class ProductWithBrandAndTypeSpecification : BaseSpecifications<Product, int>
 {
     // Get All Products with brand and type
-    public ProductWithBrandAndTypeSpecification(int? typeId, int? brandId, ProductSortingOptions sort)
-        : base(p => (!typeId.HasValue || p.TypeId == typeId)
-                    && (!brandId.HasValue || p.BrandId == brandId))
+    public ProductWithBrandAndTypeSpecification(ProductSpecificationParameters parameters)
+        : base(p => (!parameters.TypeId.HasValue || p.TypeId == parameters.TypeId)
+                    && (!parameters.BrandId.HasValue || p.BrandId == parameters.BrandId))
     {
         AddIncludes(p => p.productBrand);
         AddIncludes(p => p.productType);    
         
         // Switch 4 [NameAsc, NameDesc, PriceAsc, PriceDesc]
-        switch (sort)
+        switch (parameters.Sort)
         {
             case ProductSortingOptions.NameAsc:
                 AddOrderBy(p => p.Name);

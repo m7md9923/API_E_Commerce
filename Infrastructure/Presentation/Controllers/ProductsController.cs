@@ -2,6 +2,7 @@
 using Services.Abstraction.Contracts;
 using Shared.Dtos;
 using Shared.Enums;
+using Shared.Specifications;
 
 namespace Presentation.Controllers;
 
@@ -11,8 +12,8 @@ public class ProductsController(IServiceManager _serviceManager) : ControllerBas
 {
     // EndPoint ==> Get All Products
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ProductResultDto>>> GetAllProductsAsync(int? typeId, int? brandId, ProductSortingOptions sort)
-         => Ok(await _serviceManager.ProductService.GetAllProductsAsync(typeId, brandId, sort));
+    public async Task<ActionResult<IEnumerable<ProductResultDto>>> GetAllProductsAsync([FromQuery] ProductSpecificationParameters parameters)
+         => Ok(await _serviceManager.ProductService.GetAllProductsAsync(parameters)); 
     // Endpoint ==> Get Product By Id
     [HttpGet("{id:int}")]
     public async Task<ActionResult<ProductResultDto>> GetProductByIdAsync(int id)
