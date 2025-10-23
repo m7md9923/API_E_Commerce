@@ -10,7 +10,8 @@ public class ProductWithBrandAndTypeSpecification : BaseSpecifications<Product, 
     // Get All Products with brand and type
     public ProductWithBrandAndTypeSpecification(ProductSpecificationParameters parameters)
         : base(p => (!parameters.TypeId.HasValue || p.TypeId == parameters.TypeId)
-                    && (!parameters.BrandId.HasValue || p.BrandId == parameters.BrandId))
+                    && (!parameters.BrandId.HasValue || p.BrandId == parameters.BrandId)
+                    && (string.IsNullOrEmpty(parameters.Search) || p.Name.ToLower().Contains(parameters.Search.ToLower())))
     {
         AddIncludes(p => p.productBrand);
         AddIncludes(p => p.productType);    
