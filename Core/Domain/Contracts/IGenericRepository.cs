@@ -22,6 +22,8 @@ public interface IGenericRepository<TEntity, TKey> where TEntity : BaseEntity<TK
     // GetById
     Task<TEntity?> GetByIdAsync(ISpecifications<TEntity, TKey> specifications);
     
+    Task<int> CountAsync(ISpecifications<TEntity, TKey> specifications);
+    
     #endregion
     
 }

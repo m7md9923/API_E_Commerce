@@ -30,6 +30,9 @@ public class GenericRepository<TEntity, TKey>(StoreDbContext _dbContext) : IGene
 
     public async Task<TEntity?> GetByIdAsync(ISpecifications<TEntity, TKey> specifications)
         => await SpecificationEvaluator.CreateQuery(_dbContext.Set<TEntity>(), specifications).FirstOrDefaultAsync();
-   
+
+    public async Task<int> CountAsync(ISpecifications<TEntity, TKey> specifications)
+        => await SpecificationEvaluator.CreateQuery(_dbContext.Set<TEntity>() , specifications).CountAsync();
+
     #endregion
 }
