@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Services.Abstraction.Contracts;
+using Shared;
 using Shared.Dtos;
+using Shared.Enums;
+using Shared.Specifications;
 
 namespace Presentation.Controllers;
 
@@ -10,8 +13,8 @@ public class ProductsController(IServiceManager _serviceManager) : ControllerBas
 {
     // EndPoint ==> Get All Products
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ProductResultDto>>> GetAllProductsAsync()
-         => Ok(await _serviceManager.ProductService.GetAllProductsAsync());
+    public async Task<ActionResult<PaginatedResult<ProductResultDto>>> GetAllProductsAsync([FromQuery] ProductSpecificationParameters parameters)
+         => Ok(await _serviceManager.ProductService.GetAllProductsAsync(parameters)); 
     // Endpoint ==> Get Product By Id
     [HttpGet("{id:int}")]
     public async Task<ActionResult<ProductResultDto>> GetProductByIdAsync(int id)
